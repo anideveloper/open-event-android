@@ -205,11 +205,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
     private boolean checkIfAlreadyhavePermission() {
         int result = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == PackageManager.PERMISSION_GRANTED;
+
     }
     private void requestForSpecificPermission() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
@@ -221,6 +218,7 @@ public class EditProfileActivity extends AppCompatActivity {
             case 101:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     showFileChooser();
+                    //granted
                     Toast.makeText(this,getString(R.string.permissions_given),Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(this,getString(R.string.permission_required),Toast.LENGTH_SHORT).show();
@@ -229,6 +227,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
         }
     }
     @Override
